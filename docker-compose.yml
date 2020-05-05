@@ -1,0 +1,25 @@
+
+version: '2'
+services: 
+    app:
+        build:
+          context: ./DatingApp.Api
+          dockerfile: Dockerfile
+        image: core-api
+        volumes:
+          - .\DatingApp.Api:/app/
+        ports:
+          - '5000:5000'
+          
+    web:
+      container_name: angular
+      build: ./DatingApp-SPA
+      restart: always
+      ports:
+        - 4200:4200
+        - '49153:49153'
+      links: 
+        - app
+      volumes:
+        - ./DatingApp-SPA:/app/SPA
+      entrypoint: ng serve --host 0.0.0.0 --poll 1

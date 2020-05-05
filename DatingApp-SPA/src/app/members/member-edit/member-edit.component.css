@@ -1,0 +1,19 @@
+.img-thumbnail {
+    margin: 1.2rem auto;
+    width: 85%;
+    
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.card-body {
+    padding: 0 1.2rem;
+}
+
+.card-footer {
+    padding: .8rem 1rem;
+    background-color: #ffffff;
+    border-top: none;
+
+}
