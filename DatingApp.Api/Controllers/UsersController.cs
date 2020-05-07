@@ -5,11 +5,15 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.Api.Data;
 using DatingApp.Api.Dtos;
+using DatingApp.Api.helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.Api.Controllers
 {
+
+    // ServiceFilter action filter that will get used naytime any of these methodes get called
+    [ServiceFilter(typeof(updateUserActivity))]
     [Authorize]
     [ApiController]
     [Route("api/[controller]")]

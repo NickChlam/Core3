@@ -74,6 +74,9 @@ namespace DatingApp.Api.Migrations
                     b.Property<string>("Introduction")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("LastActive")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("LookingFor")
                         .HasColumnType("TEXT");
 

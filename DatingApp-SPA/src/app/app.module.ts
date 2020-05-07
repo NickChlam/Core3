@@ -52,6 +52,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
 
+// pipes 
+import { TimeAgoPipe } from 'time-ago-pipe'
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -79,6 +81,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     MemberDetailComponent,
     MemberEditComponent,
     PhotoEditorComponent,
+    TimeAgoPipe,
 
   ],
   imports: [
