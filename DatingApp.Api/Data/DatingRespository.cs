@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DatingApp.Api.helpers;
 using DatingApp.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -47,17 +49,55 @@ namespace DatingApp.Api.Data
             return user;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<PagedList<User>> GetUsers(UserParams userParams)
         {
-            var users = await _context.Users.Include(p => p.Photos).ToListAsync();
+            var users =  _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive).AsQueryable();
 
-            return users;
+            users = users.Where(u => u.Id != userParams.UserId);
+
+            users = users.Where(u => u.Gender == userParams.Gender);
+
+            if (string.IsNullOrEmpty(userParams.Country) == false ){
+                 users = users.Where(u => u.Country.ToLower() == userParams.Country.ToLower());
+            }
+
+            if (userParams.MinAge !=18 || userParams.MaxAge !=99) 
+            {
+                var minDOB = DateTime.Now.AddYears(-userParams.MaxAge -1);
+                var maxDOB = DateTime.Now.AddYears(-userParams.MinAge);
+
+                users = users.Where(u => u.DateOfBirth >= minDOB && u.DateOfBirth <= maxDOB);
+            }
+
+            if ( !string.IsNullOrEmpty(userParams.OrderBy))
+            {
+                switch (userParams.OrderBy)
+                {
+                    case "created":
+                        users = users.OrderByDescending(u => u.Created);
+                        break;
+                    default: 
+                        users = users.OrderByDescending(u => u.LastActive);
+                        break;
+                }
+            }
+
+            return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task<bool> SaveAll()
         {
             // if we return more than 0 it returns true.
             return await _context.SaveChangesAsync() > 0;
+        }
+        private static int CalcMinAge(DateTime BirthDay)
+        {
+            var today = DateTime.Today;
+            var age = today.Year - BirthDay.Year;
+            if (BirthDay.Date > today.AddYears(age)) age--;
+            return age;
+
+
         }
     }
 }
