@@ -1,0 +1,38 @@
+table {
+    margin-top: 1rem;
+}
+
+.img-circle {
+    max-height: 3rem;
+    margin-right: 1rem;
+}
+
+td {
+    vertical-align: middle;
+}
+tr:hover:not(:first-child) {
+    filter: drop-shadow(0 0 0.55rem #fff);
+}
+
+tr:hover:first-child {
+    cursor: default;
+    
+}
+
+tr:first-child {
+    color: lightgrey;
+    background-color: #e95420;
+}
+
+.unread {
+    background-color: rgb(46,46,46);
+    font-weight: bolder;
+    color: white;
+}
+
+tr {
+    background-color: rgb(0,0,0);
+    color: lightgrey;
+    font-weight: normal;
+    
+}

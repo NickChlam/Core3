@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 
 
 // angular modules
@@ -34,6 +35,8 @@ import { PreventUnsavedChanges } from './guards/prevent-unsaved-changes.guard';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { MemberLikeeResolver } from './_resolvers/member-likee.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
 
 // services
 import { AuthService } from './_services/auth.service';
@@ -54,7 +57,9 @@ import { NgxGalleryModule } from 'ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
 
 // pipes 
-import { TimeAgoPipe } from 'time-ago-pipe'
+import { TimeAgoPipe } from 'time-ago-pipe';
+
+
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -83,6 +88,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     MemberEditComponent,
     PhotoEditorComponent,
     TimeAgoPipe,
+    MemberMessagesComponent,
 
   ],
   imports: [
@@ -117,7 +123,9 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     MemberDetailResolver,
     MemberListResolver,
     MemberEditResolver,
+    MessagesResolver,
     PreventUnsavedChanges,
+    MemberLikeeResolver,
     { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
   ],
   bootstrap: [AppComponent]

@@ -4,6 +4,7 @@ import { User } from '../../_models/user';
 import { ActivatedRoute } from '@angular/router';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 import { UserService } from 'src/app/_services/user.service';
+import { AuthService } from 'src/app/_services/auth.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class MemberListComponent implements OnInit {
   userParams: any = {};
 
 
-  constructor(private alertify: AlertifyService, private route: ActivatedRoute, private userService: UserService) { }
+  constructor(private alertify: AlertifyService, private route: ActivatedRoute, private userService: UserService, private authService: AuthService) { }
 
   ngOnInit() {
     this.userParams.gender = this.user.gender === 'female' ? 'male' : 'female';
@@ -42,6 +43,7 @@ export class MemberListComponent implements OnInit {
   }
 
   loadUsers() {
+    
     this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, this.userParams) 
         .subscribe( (data: PaginatedResult<User[]>) => {
           this.users = data.result;
@@ -55,8 +57,12 @@ export class MemberListComponent implements OnInit {
     this.userParams.minAge = 18;
     this.userParams.maxAge = 99;
     this.userParams.orderBy = ""
+    this.pagination.currentPage = 1;
     this.loadUsers();
   }
 
+ 
 
-}
+  }
+
+
